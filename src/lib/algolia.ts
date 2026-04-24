@@ -22,7 +22,7 @@ export const searchProducts = async (query: string) => {
     const { results } = await client.search({
       requests: [
         {
-          indexName: 'sparkbyte_products',
+          indexName: import.meta.env.VITE_ALGOLIA_INDEX_NAME || 'sparkbyte_products',
           query,
           hitsPerPage: 20,
         },

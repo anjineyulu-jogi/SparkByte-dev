@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "fetch-data": "node scripts/fetch_openfoodfacts.js",
+    "upload-data": "node scripts/upload_algolia.js"
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
