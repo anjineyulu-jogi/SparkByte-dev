@@ -103,11 +103,12 @@ function ProductCard({ product }: { product: Product }) {
            setAnalyzing(false);
         }
       }}>
+        {/* Helper to pick best available string for title */}
         <div>
           <h3 className="font-bold text-xl leading-tight mb-1 transition-colors">
-            {product.name}
+            {product.name || (product as any).product_name || (product as any).title || (product as any).ProductName || 'Unknown Product'}
           </h3>
-          <p className="text-sm text-gray-500 font-medium">{product.brand}</p>
+          <p className="text-sm text-gray-500 font-medium">{(product.brand || (product as any).Brand || (product as any).brand_name || '')}</p>
         </div>
         {expanded && (
           <button className="text-xs font-semibold px-3 py-1 bg-gray-100 rounded-full hover:bg-gray-200" aria-label="Collapse card">
@@ -119,8 +120,13 @@ function ProductCard({ product }: { product: Product }) {
       {expanded && (
         <div className="mt-6 pt-6 border-t border-gray-100 animate-in fade-in slide-in-from-top-4 duration-300 relative z-10" onClick={e => e.stopPropagation()}>
           <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wider mb-2">Ingredients</h4>
-          <p className="text-sm text-gray-600 mb-6">{product.ingredients || 'No ingredients information available.'}</p>
+          <p className="text-sm text-gray-600 mb-6">{product.ingredients || (product as any).Ingredients || (product as any).ingredient_text || 'No ingredients information available. View raw data below.'}</p>
           
+          <details className="mb-6 text-xs text-gray-500 bg-gray-50 p-2 rounded">
+            <summary className="cursor-pointer font-semibold mb-2">Raw JSON Data (Debug)</summary>
+            <pre className="overflow-auto max-h-40">{JSON.stringify(product, null, 2)}</pre>
+          </details>
+
           {!analyzing ? (
             <div className="flex flex-wrap gap-3">
               <button 

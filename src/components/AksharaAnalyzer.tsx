@@ -12,7 +12,9 @@ export default function AksharaAnalyzer({ product, onClose }: { product: Product
   useEffect(() => {
     async function runAnalysis() {
       setIsAnalyzing(true);
-      const text = await analyzeIngredients(product.ingredients, product.name);
+      const ingredients = product.ingredients || (product as any).Ingredients || (product as any).ingredient_text || JSON.stringify(product);
+      const name = product.name || (product as any).product_name || (product as any).title || (product as any).ProductName || 'this product';
+      const text = await analyzeIngredients(ingredients, name);
       setAnalysisText(text);
       setIsAnalyzing(false);
     }

@@ -32,8 +32,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const handleLogin = async () => {
     try {
       await loginWithGoogle();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login failed", error);
+      if (error?.message?.includes("popup")) {
+        alert("Sign-in popup was blocked or failed. Please ensure popups are allowed or try opening this app in a new tab.");
+      } else {
+        alert(`Sign-in failed: ${error?.message || "Unknown error"}. Check your Firebase configuration.`);
+      }
     }
   };
 
