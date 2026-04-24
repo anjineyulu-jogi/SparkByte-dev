@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --m3-surface: 248 250 250;
+    --m3-on-surface: 25 28 28;
+    --m3-primary: 0 104 116;
+    --m3-on-primary: 255 255 255;
+    --m3-primary-container: 151 240 255;
+    --m3-on-primary-container: 0 31 36;
+    --m3-secondary-container: 204 229 233;
+    --m3-on-secondary-container: 5 31 35;
+    --m3-error: 186 26 26;
+    --m3-error-container: 255 218 214;
+    --m3-on-error-container: 65 0 2;
+  }
+}
+
+body {
+  background-color: rgb(var(--m3-surface));
+  color: rgb(var(--m3-on-surface));
+}
+
+@layer components {
+  .m3-card {
+    @apply bg-white rounded-[28px] shadow-sm border border-gray-100 overflow-hidden transition-all duration-300;
+  }
+
+  .m3-button {
+    @apply rounded-full px-6 py-2.5 font-medium transition-colors duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .m3-button-primary {
+    @apply rounded-full px-6 py-2.5 font-medium transition-colors duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none bg-[rgb(var(--m3-primary))] text-[rgb(var(--m3-on-primary))] hover:brightness-110;
+  }
+
+  .m3-button-secondary {
+    @apply rounded-full px-6 py-2.5 font-medium transition-colors duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none bg-[rgb(var(--m3-secondary-container))] text-[rgb(var(--m3-on-secondary-container))] hover:brightness-95;
+  }
+
+  .m3-button-tonal {
+    @apply rounded-full px-6 py-2.5 font-medium transition-colors duration-200 active:scale-95 disabled:opacity-50 disabled:pointer-events-none bg-[rgb(var(--m3-primary-container))] text-[rgb(var(--m3-on-primary-container))] hover:brightness-95;
+  }
+}

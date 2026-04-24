@@ -1,0 +1,9 @@
+{
+  "name": "SparkByte",
+  "description": "AI-powered food safety scanner and biochemical decoder using Gemini Flash and Pro.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": []
+}
