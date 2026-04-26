@@ -3,6 +3,7 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/layout/Navbar';
 import Home from './pages/Home';
 import Scanner from './pages/Scanner';
+import BarcodeScanner from './pages/BarcodeScanner';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/scan" element={<Scanner />} />
+              <Route path="/barcode" element={<BarcodeScanner />} />
             </Routes>
           </main>
         </div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Camera, Search, User as UserIcon } from 'lucide-react';
+import { Camera, Search, User as UserIcon, ScanBarcode } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Navbar() {
@@ -23,6 +23,9 @@ export default function Navbar() {
           </Link>
           <Link to="/scan" className="p-2 rounded-full hover:bg-gray-100 transition-colors" aria-label="Live Scanner">
             <Camera className="w-5 h-5" />
+          </Link>
+          <Link to="/barcode" className="p-2 rounded-full hover:bg-gray-100 transition-colors" aria-label="Barcode Scanner">
+            <ScanBarcode className="w-5 h-5" />
           </Link>
           
           {user ? (

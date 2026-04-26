@@ -24,6 +24,40 @@ export async function processLiveScan(imageBase64: string, mimeType: string) {
   }
 }
 
+export async function processBarcodeScan(imageBase64: string, mimeType: string) {
+  const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  try {
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.1-flash',
+      config: {
+         responseMimeType: 'application/json',
+         responseSchema: {
+            type: 'OBJECT' as any,
+            properties: {
+               status: { type: 'STRING' as any, description: 'Either "found" or "searching"' },
+               barcode: { type: 'STRING' as any, description: 'The 13 or 8 digit product barcode if readable full digits, otherwise empty' },
+               guidance: { type: 'STRING' as any, description: 'Short spoken guidance to user e.g. "Move closer", "Tilt up", "Barcode detected", "Searching"' }
+            },
+            required: ['status', 'guidance']
+         }
+      },
+      contents: [
+        {
+          role: 'user',
+          parts: [
+            { text: "Help me scan a barcode. Look closely at the image. If there's a barcode, tell me how to align it better, or extract it if it is clear." },
+            { inlineData: { data: imageBase64, mimeType } }
+          ]
+        }
+      ]
+    });
+    return JSON.parse(response.text || '{}');
+  } catch (err) {
+    console.error("Barcode API Error", err);
+    return { status: 'searching', guidance: 'Network error, please hold still.' };
+  }
+}
+
 export async function analyzeIngredients(ingredientsText: string, productName: string) {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
